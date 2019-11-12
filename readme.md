@@ -13,3 +13,6 @@ echarts-demo
 echarts-demo
 1. CURD 
 数据根据性别再展示echarts, 年龄.age 金钱.money 身高.tall 体重.weight
+
+2019-11-12
+1. echarts-demo-pic.jpg
