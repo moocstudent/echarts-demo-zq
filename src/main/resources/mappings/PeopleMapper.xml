@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangjh.echartsdemo.mapper.PeopleMapper">
+    <resultMap id="BaseResultMap" type="com.wangjh.echartsdemo.bean.PeopleInHall">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="age" jdbcType="BIGINT" property="age"/>
+        <result column="sex" jdbcType="VARCHAR" property="sex"/>
+        <result column="money" jdbcType="VARCHAR" property="money"/>
+        <result column="clothes" jdbcType="VARCHAR" property="clothes"/>
+        <result column="tall" jdbcType="VARCHAR" property="tall"/>
+        <result column="weight" jdbcType="VARCHAR" property="weight"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="createtime" jdbcType="VARCHAR" property="createtime"/>
+        <result column="updatetime" jdbcType="VARCHAR" property="updatetime"/>
+    </resultMap>
+
+    <sql id="base_column">
+        id,name,age,sex,money,clothes,tall,weight,status,createtime,updatetime
+    </sql>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wangjh.echartsdemo.bean.PeopleInHall"
+            useGeneratedKeys="true">
+        insert into peopleinhall
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                `name`,
+            </if>
+            <if test="age != null and age != ''">
+                `age`,
+            </if>
+            <if test="sex != null and sex != ''">
+                `sex`,
+            </if>
+            <if test="money != null and money != ''">
+                `money`,
+            </if>
+            <if test="clothes != null and clothes != ''">
+                `clothes`,
+            </if>
+            <if test="tall != null and tall != ''">
+                `tall`,
+            </if>
+            <if test="weight != null and weight != ''">
+                `weight`,
+            </if>
+            <if test="status != null and status != ''">
+                `status`,
+            </if>
+            <if test="createtime != null and createtime != ''">
+                `createtime`,
+            </if>
+            <if test="updatetime != null and updatetime != ''">
+                `updatetime`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                #{name}
+            </if>
+            <if test="age != null and age != ''">
+                #{age}
+            </if>
+            <if test="sex != null and sex != ''">
+                #{sex}
+            </if>
+            <if test="money != null and money != ''">
+                #{money}
+            </if>
+            <if test="clothes != null and clothes != ''">
+                #{clothes}
+            </if>
+            <if test="tall != null and tall != ''">
+                #{tall}
+            </if>
+            <if test="weight != null and weight != ''">
+                #{weight}
+            </if>
+            <if test="status != null and status != ''">
+                #{status}
+            </if>
+            <if test="createtime != null and createtime != ''">
+                #{createtime}
+            </if>
+            <if test="updatetime != null and updatetime != ''">
+                #{updatetime}
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.wangjh.echartsdemo.bean.PeopleInHall">
+        update peopleinhall
+        <set>
+            <if test="name != null and name != ''">
+               `name` = #{name}
+            </if>
+            <if test="age != null and age != ''">
+                age = #{age}
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex}
+            </if>
+            <if test="money != null and money != ''">
+                money = #{money}
+            </if>
+            <if test="clothes != null and clothes != ''">
+                clothes = #{clothes}
+            </if>
+            <if test="tall != null and tall != ''">
+                tall = #{tall}
+            </if>
+            <if test="weight != null and weight != ''">
+                weight = #{weight}
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status}
+            </if>
+            <if test="createtime != null and createtime != ''">
+                createtime = #{createtime}
+            </if>
+            <if test="updatetime != null and updatetime != ''">
+                updatetime = #{updatetime}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from peopleinhall
+        where id in
+        <foreach item="ids" index="index" collection="array" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+
+    <select id="select" parameterType="com.wangjh.echartsdemo.bean.PeopleInHall" resultMap="BaseResultMap">
+        select
+        <include refid="base_column"/>
+        from peopleinhall
+        <where>
+            <if test="id != null and id != ''">
+                and id=#{id}
+            </if>
+            <if test="name != null and name != '' ">
+                <bind name="namePattern" value="'%'+name+'%'"/>
+                and name like #{namePattern}
+            </if>
+            <if test="age != null and age != '' ">
+                and age = #{age}
+            </if>
+            <if test="sex != null and sex != '' ">
+                and sex = #{sex}
+            </if>
+            <if test="money != null and money != '' ">
+                and money = #{money}
+            </if>
+            <if test="clothes != null and clothes != '' ">
+                and clothes = #{clothes}
+            </if>
+            <if test="tall != null and tall != '' ">
+                and tall = #{tall}
+            </if>
+            <if test="weight != null and weight != '' ">
+                and weight = #{weight}
+            </if>
+            <if test="status != null and status != '' ">
+                and status = #{status}
+            </if>
+            <if test="createtime != null and createtime != '' ">
+                and createtime = #{createtime}
+            </if>
+            <if test="updatetime != null and updatetime != '' ">
+                and updatetime = #{updatetime}
+            </if>
+        </where>
+        order by createtime DESC
+    </select>
+
+    <select id="getAllPeopleInHall" resultType="com.wangjh.echartsdemo.bean.PeopleInHall">
+        select
+        <include refid="base_column"/>
+        from peopleinhall
+        order by createtime DESC
+    </select>
+
+
+</mapper>
